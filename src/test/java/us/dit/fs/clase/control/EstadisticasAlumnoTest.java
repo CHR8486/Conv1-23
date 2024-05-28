@@ -97,7 +97,6 @@ class EstadisticasAlumnoTest {
 	 */
 	@BeforeEach
 	void setUp() throws Exception {
-
 	}
 
 	/**
@@ -233,7 +232,6 @@ class EstadisticasAlumnoTest {
 	void testObtenerCuartilPorClase() {
 		//Configurar comportamiento del MOCK
 		
-	
 		// Crear instancia de EstadisticasAlumno con el mock de AlumnoDAO
 		
 		//Invocar métdo a probar
