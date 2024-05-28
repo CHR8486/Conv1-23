@@ -106,7 +106,6 @@ class EstadisticasAlumnoTest {
 	@Test
 	void testEstadisticasAlumno() {
 		//Configurar comportamiento del MOCK
-		
 	
 		// Crear instancia de EstadisticasAlumno con el mock de AlumnoDAO
 		
@@ -213,15 +212,6 @@ class EstadisticasAlumnoTest {
 	 */
 	@Test
 	void testObtenerDiferenciaMediaClase() {
-		//Configurar comportamiento del MOCK
-		
-	
-		// Crear instancia de EstadisticasAlumno con el mock de AlumnoDAO
-		
-		//Invocar métdo a probar
-		
-
-		//Escribir verificaciones
 	}
 
 	/**
@@ -231,14 +221,26 @@ class EstadisticasAlumnoTest {
 	@Test
 	void testObtenerCuartilPorClase() {
 		//Configurar comportamiento del MOCK
-		
-		// Crear instancia de EstadisticasAlumno con el mock de AlumnoDAO
-		
-		//Invocar métdo a probar
-		
+		alumnoDAO = Mockito.mock(AlumnoDAO.class);
 
-		//Escribir verificaciones
+		// Returning alumno 1 for any string
+		Mockito.when(alumnoDAO.getAlumnoByUvus(Mockito.anyString())).thenReturn(alumno1);
+		Mockito.when(alumnoDAO.getAlumnosByClase(Mockito.anyString())).thenReturn(alumnos);
+
+		// Crear instancia de EstadisticasAlumno con el mock de AlumnoDAO
+		EstadisticasAlumno estadisticasAlumno = new EstadisticasAlumno(alumnoDAO);
 		
+		//Invocar método a probar
+		int cuartil = estadisticasAlumno.obtenerCuartilPorClase(alumno1.getUvus());
+		
+		//Escribir verificaciones
+		Mockito.verify(alumnoDAO).getAlumnoByUvus(uvusCaptor.capture());
+		Mockito.verify(alumnoDAO).getAlumnosByClase(claseCaptor.capture());
+
+		assertEquals("uvus01", uvusCaptor.getValue(), "The UVUS is not as expected");
+		assertEquals("clase", claseCaptor.getValue(), "The class is not as expected");
+		// The task has stated that the quartile should be 3
+		assertEquals(3, cuartil, "The quartile is not as expected");
 	}
 
 }
